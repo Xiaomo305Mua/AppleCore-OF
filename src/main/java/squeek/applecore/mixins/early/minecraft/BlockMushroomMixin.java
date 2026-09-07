@@ -10,12 +10,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-
 import squeek.applecore.api.AppleCoreAPI;
-import squeek.applecore.api.plants.PlantGrowthResult;
 
 @Mixin(BlockMushroom.class)
 public class BlockMushroomMixin extends BlockBush {
@@ -23,20 +21,21 @@ public class BlockMushroomMixin extends BlockBush {
     @Unique
     private boolean appleCore$executedCondition;
 
-    @ModifyExpressionValue(
+    @Redirect(
             method = "updateTick",
             at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", ordinal = 0))
-    private int onUpdateTick(int original, World worldIn, int x, int y, int z, Random random) {
-        PlantGrowthResult result = AppleCoreAPI.dispatcher.validatePlantGrowth(this, worldIn, x, y, z, random);
-        if (result == PlantGrowthResult.ALLOW) {
-            this.appleCore$executedCondition = true;
-            return 0;
-        } else if (result == PlantGrowthResult.DEFAULT) {
-            this.appleCore$executedCondition = original == 0;
-            return original;
-        } else { // DENY
-            this.appleCore$executedCondition = false;
-            return -1;
+    private int onUpdateTick(Random random, int bound, World worldIn, int x, int y, int z) {
+        switch (AppleCoreAPI.dispatcher.validatePlantGrowth(this, worldIn, x, y, z, random)) {
+            case ALLOW:
+                this.appleCore$executedCondition = true;
+                return 0;
+            case DEFAULT:
+                int original = random.nextInt(bound);
+                this.appleCore$executedCondition = original == 0;
+                return original;
+            default: // DENY
+                this.appleCore$executedCondition = false;
+                return -1;
         }
     }
 
