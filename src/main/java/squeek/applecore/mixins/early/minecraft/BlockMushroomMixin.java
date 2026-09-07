@@ -21,9 +21,7 @@ public class BlockMushroomMixin extends BlockBush {
     @Unique
     private boolean appleCore$executedCondition;
 
-    @Redirect(
-            method = "updateTick",
-            at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", ordinal = 0))
+    @Redirect(method = "updateTick", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", ordinal = 0))
     private int onUpdateTick(Random random, int bound, World worldIn, int x, int y, int z) {
         switch (AppleCoreAPI.dispatcher.validatePlantGrowth(this, worldIn, x, y, z, random)) {
             case ALLOW:
