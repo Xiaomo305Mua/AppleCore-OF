@@ -1,7 +1,7 @@
 <img src="http://www.ryanliptak.com/images/applecore.png" width="32" /> [AppleCore](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2222837-applecore)
 ===========
 
-An API for modifying the food and hunger mechanics of Minecraft
+An API for modifying the food and hunger mechanics of Minecraft - OptiFine compatible
 
 ### Using AppleCore
 * [Building against AppleCore](https://github.com/squeek502/AppleCore/wiki/Building-against-AppleCore)
