@@ -2,7 +2,7 @@
 {
   "modid": "${modId}",
   "name": "${modName}",
-  "description": "An API for modifying the food and hunger mechanics of Minecraft - OptiFine compatible",
+  "description": "An API for modifying the food and hunger mechanics of Minecraft - OptiFine compatible",
   "version": "${modVersion}",
   "mcversion": "${minecraftVersion}",
   "url": "https://github.com/Xiaomo305Mua/AppleCore-Unofficial-OF",
