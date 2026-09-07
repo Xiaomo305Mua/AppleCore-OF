@@ -5,7 +5,7 @@
   "description": "An API for modifying the food and hunger mechanics of Minecraft - OptiFine compatible",
   "version": "${modVersion}",
   "mcversion": "${minecraftVersion}",
-  "url": "https://github.com/Xiaomo305Mua/AppleCore-OF",
+  "url": "https://github.com/Xiaomo305Mua/AppleCore-Unofficial-OF",
   "updateUrl": "",
   "authorList": ["squeek", "Xiaomo305Mua"],
   "credits": "",
