@@ -23,17 +23,17 @@ public class BlockMushroomMixin extends BlockBush {
 
     @Redirect(method = "updateTick", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", ordinal = 0))
     private int onUpdateTick(Random random, int bound, World worldIn, int x, int y, int z) {
-        switch (AppleCoreAPI.dispatcher.validatePlantGrowth(this, worldIn, x, y, z, random)) {
-            case ALLOW:
-                this.appleCore$executedCondition = true;
-                return 0;
-            case DEFAULT:
-                int original = random.nextInt(bound);
-                this.appleCore$executedCondition = original == 0;
-                return original;
-            default: // DENY
-                this.appleCore$executedCondition = false;
-                return -1;
+        String result = AppleCoreAPI.dispatcher.validatePlantGrowth(this, worldIn, x, y, z, random).name();
+        int original = random.nextInt(bound);
+        if ("ALLOW".equals(result)) {
+            this.appleCore$executedCondition = true;
+            return 0;
+        } else if ("DEFAULT".equals(result)) {
+            this.appleCore$executedCondition = original == 0;
+            return original;
+        } else { // DENY
+            this.appleCore$executedCondition = false;
+            return -1;
         }
     }
 
